@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function changeCharacter(ev) {
   //user clicked on the <big-bang> element
   const bb = ev.target;
-  // bb.setAttribute('character', 'Sheldon');
-  //or we can use the defined property
   bb.character = bb.character === 'Leonard' ? 'Sheldon' : 'Leonard';
-
+  //bb.getAttribute()  bb.setAttribute()
   bb.color = bb.color === 'cornflowerblue' ? 'lightcoral' : 'cornflowerblue';
 }

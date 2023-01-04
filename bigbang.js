@@ -1,7 +1,3 @@
-/*
-only properties that apply to text like font, color, line-height 
-and text-align (among others) and visibility are inherited.
-*/
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -43,6 +39,43 @@ class BigBang extends HTMLElement {
     // shadowRoot shields the web component from external styling, mostly
     let clone = template.content.cloneNode(true);
     this.root.append(clone);
+  }
+
+  //define the allowed attributes
+  static get observedAttributes() {
+    return ['character', 'color'];
+  }
+  //
+  //sync attributes with properties as you want
+  get character() {
+    return this.getAttribute('character');
+  }
+  set character(value) {
+    this.setAttribute('character', value);
+  }
+
+  get color() {
+    return this.getAttribute('color');
+  }
+  set color(value) {
+    this.setAttribute('color', value);
+  }
+  //
+  //handle values and changes to the attributes
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    if (attrName.toLowerCase() === 'character') {
+      const div = this.root.querySelector('.root');
+      let p = div.querySelector('p')
+        ? div.querySelector('p')
+        : document.createElement('p');
+      p.className = 'character';
+      p.textContent = newVal;
+      div.append(p);
+    }
+    console.log(attrName, newVal);
+    if (attrName.toLowerCase() === 'color') {
+      this.style.backgroundColor = newVal;
+    }
   }
 }
 
